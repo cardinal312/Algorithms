@@ -24,3 +24,4 @@ func abstract(name: String) -> String {
 
 print(abstract(name: "Paul"))
 
+// something with main
