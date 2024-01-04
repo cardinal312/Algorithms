@@ -1,27 +1,48 @@
 import Foundation
 
-let strArray: [String] = ["Bob", "Jacob", "Hugo", "Jack"]
+let numbers: [Int] = [10, 3, 5, 4, 34, 23, 2, 55, 42, 23, 43, 3]
+let someStr = ["b", "d", "f", "a", "c", "i", "g", "e", "s", "l", "k"]
 
-func transform(arr: [String]) -> [String : String] {
-    
-    let lock = NSLock()
-    var dict = [String : String]()
-    
-    arr.forEach {
-        lock.lock()
-            dict[$0.description] = $0.description
-                    lock.unlock() }
-    return dict
+//Buble sort
+
+//func bubleSort<T: Comparable>(_ arr: [T]) -> [T] {
+//    guard arr.count > 1 else { return arr }
+//
+//    var newArray = [T]()
+//
+//    for i in 0..<arr.count {
+//        let lastIndex = (arr.count - 1) - i
+//
+//        for j in 0..<lastIndex {
+//            let current = arr[j]
+//            let nextIndex = arr[j + 1]
+//
+//            if current < nextIndex {
+//                newArray[j] = nextIndex
+//                newArray[j + 1] = current
+//            }
+//        }
+//    }
+//    return newArray
+//}
+//
+//let result = bubleSort(numbers)
+//print(result)
+
+
+//Quick sort
+
+func quick<T: Comparable>(_ arr: [T]) -> [T] {
+    guard arr.count > 1 else { return arr }
+
+    let middleIndex = arr[arr.count / 2]
+
+    let startElement = arr.filter { $0 < middleIndex }
+    let middleElement = arr.filter { $0 == middleIndex }
+    let lastElement = arr.filter { $0 > middleIndex }
+
+    return quick(startElement) + middleElement + quick(lastElement)
 }
 
-let readyDict = transform(arr: strArray)
-
-func abstract(name: String) -> String {
-    let readyDict = transform(arr: strArray)
-    guard let name = readyDict[name] else { return "Resourse hav't this name" }
-    return name
-}
-
-print(abstract(name: "Paul"))
-
-// something with main
+let result = quick(someStr)
+print(result)
